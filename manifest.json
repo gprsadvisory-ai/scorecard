@@ -2,7 +2,7 @@
   "name": "GPRS Meeting Scorecard",
   "short_name": "GPRS Scorecard",
   "description": "GPRS Advisory — Meeting Scorecard App for Sell-Side, Buy-Side and Referral meetings",
-  "start_url": "./GPRS_Meeting_Scorecard_App.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#1B3A5C",
   "theme_color": "#1B3A5C",
