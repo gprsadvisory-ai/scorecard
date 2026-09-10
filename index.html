@@ -143,8 +143,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--gbg);color:var
 .log-notes{font-size:12px;color:var(--gdk);line-height:1.5;border-top:1px solid var(--gbdr);padding-top:8px;margin-top:6px}
 .log-action-btn{font-size:11px;font-weight:600;padding:4px 10px;border-radius:5px;border:1.5px solid var(--gbdr);background:#fff;cursor:pointer;color:var(--gmid);transition:all .15s;margin-top:8px}
 .log-action-btn:hover{border-color:var(--red);color:var(--red)}
-.export-btn{width:100%;padding:10px;border:1.5px solid var(--navy);border-radius:8px;background:#fff;color:var(--navy);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:6px}
-.export-btn:hover{background:var(--navy);color:#fff}
+
 
 /* GitHub guide */
 .guide-card{background:#fff;border:1px solid var(--gbdr);border-radius:10px;padding:16px;margin-bottom:12px}
@@ -465,7 +464,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--gbg);color:var
 
 <!-- ══ LOG ══ -->
 <div id="view-log" class="view">
-  <button class="export-btn" onclick="exportLog()">⬇ Export Log as CSV — import to HubSpot</button>
+
   <div class="log-filters">
     <button class="filter-btn active" onclick="filterLog('all',this)">All</button>
     <button class="filter-btn" onclick="filterLog('sell',this)">Sell-Side</button>
@@ -754,16 +753,7 @@ function deleteEntry(id){
 }
 
 // Export
-function exportLog(){
-  if(!meetings.length){alert('No meetings to export yet.');return;}
-  const hdrs=['Type','Name','Company','Role','Date','Score','MaxScore','Equity','Tier','Assessment','NextSteps','FollowUp','SavedAt'];
-  const rows=meetings.map(m=>[m.type,m.name,m.company||m.org||'',m.role||'',m.date||'',m.total||'',m.type==='ref'?15:25,m.equity||'',m.tier||'',m.assess||'',(m.nextsteps||'').replace(/,/g,' '),m.followup||'',m.savedAt||''].map(c=>`"${c}"`).join(','));
-  const csv=[hdrs.join(','),...rows].join('\n');
-  const a=document.createElement('a');
-  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
-  a.download='GPRS_Meeting_Log_'+new Date().toISOString().slice(0,10)+'.csv';
-  a.click();
-}
+
 
 function copyText(text,btn){
   navigator.clipboard.writeText(text).then(()=>{ btn.textContent='Copied!'; setTimeout(()=>btn.textContent='Copy',2000); });
