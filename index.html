@@ -512,6 +512,45 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--gbg);color:var
 </div>
 
 <script>
+// Google Sheets sync
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzoDSb6zvy8OHLyWzjN_03ZWmXPFtMGHwjvdIt2BghS-qNJpRu1uiCFWN2rSucwMDAaZA/exec';
+
+function syncToSheets(entry) {
+  const payload = {
+    timestamp:  entry.savedAt,
+    type:       entry.type,
+    name:       entry.name || '',
+    company:    entry.company || entry.org || '',
+    role:       entry.role || '',
+    date:       entry.date || '',
+    attended:   entry.attended || '',
+    score:      entry.total || '',
+    maxScore:   entry.type === 'ref' ? 15 : 25,
+    equity:     entry.equity || '',
+    tier:       entry.tier || '',
+    assessment: entry.assess || '',
+    nextSteps:  entry.nextsteps || '',
+    followUp:   entry.followup || '',
+    sector:     entry.sector || entry.sectors || '',
+    revenue:    entry.revenue || '',
+    ebitda:     entry.ebitda || '',
+    ev:         entry.ev || '',
+    stage:      entry.stage || '',
+    buyerType:  entry.buyerType || '',
+    nda:        entry.nda || '',
+    im:         entry.im || '',
+    refType:    entry.refType || '',
+    potential:  entry.potential || '',
+    notes:      [entry.discussion, entry.nextsteps, entry.concerns, entry.feedback, entry.leads, entry.personal].filter(Boolean).join(' | ')
+  };
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).catch(err => console.log('Sheets sync error:', err));
+}
+
 // State
 let meetings = JSON.parse(localStorage.getItem('gprs_meetings')||'[]');
 let tierState={sell:'',buy:'',ref:''};
@@ -641,6 +680,7 @@ function submitForm(e,type){
   }
   meetings.unshift(entry);
   localStorage.setItem('gprs_meetings',JSON.stringify(meetings));
+  syncToSheets(entry);
   showSummary(type,entry);
   e.target.reset();
   tierState[type]='';
