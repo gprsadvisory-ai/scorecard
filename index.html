@@ -407,8 +407,10 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--gbg);color:var
         <div class="field"><label>Contact Name *</label><input type="text" id="ref-name" required placeholder="Full name"></div>
         <div class="field"><label>Organisation *</label><input type="text" id="ref-org" required placeholder="Firm / Company"></div>
         <div class="field"><label>Role / Title</label><input type="text" id="ref-role" placeholder="e.g. Accountant, Broker"></div>
+        <div class="field"><label>Email</label><input type="email" id="ref-email" placeholder="email@example.com"></div>
+        <div class="field"><label>Mobile</label><input type="tel" id="ref-mobile" placeholder="e.g. 0412 345 678"></div>
         <div class="field"><label>Referrer Type</label>
-          <select id="ref-type2"><option value="">Select...</option><option>Accountant / CA</option><option>Business Broker</option><option>Lawyer / Solicitor</option><option>Financial Adviser</option><option>Industry Contact</option><option>Past Client</option><option>Other</option></select></div>
+          <select id="ref-type2"><option value="">Select...</option><option>Accountant / CA</option><option>Business Broker (sells businesses)</option><option>Mortgage / Commercial Broker (arranges finance)</option><option>Lawyer / Solicitor</option><option>Financial Adviser</option><option>Industry Contact</option><option>Past Client</option><option>Other</option></select></div>
         <div class="field"><label>Meeting Date *</label><input type="date" id="ref-date" required></div>
         <div class="field"><label>Meeting Type</label>
           <select id="ref-meettype"><option value="">Select...</option><option>In-Person</option><option>Phone Call</option><option>Video Call</option><option>Networking Event</option></select></div>
@@ -521,6 +523,8 @@ function syncToSheets(entry) {
     name:       entry.name || '',
     company:    entry.company || entry.org || '',
     role:       entry.role || '',
+    email:      entry.email || '',
+    mobile:     entry.mobile || '',
     date:       entry.date || '',
     attended:   entry.attended || '',
     score:      entry.total || '',
@@ -675,7 +679,7 @@ function submitForm(e,type){
     entry={...entry,name:g('buy-name'),company:g('buy-org'),role:g('buy-role'),date:g('buy-date'),meetType:g('buy-type'),attended:g('buy-attended'),buyerType:g('buy-buyertype'),dealSize:g('buy-dealsize'),sectors:g('buy-sectors'),criteria:g('buy-criteria'),nda:g('buy-nda'),im:g('buy-im'),score1:s1,score2:s2,equity:eq,total:s1+s2+eq,tier:g('buy-tier'),discussion:g('buy-discussion'),feedback:g('buy-feedback'),nextsteps:g('buy-nextsteps'),followup:g('buy-followup'),assess:g('buy-assess')};
   } else {
     const s1=parseInt(g('ref-score1')),eq=parseInt(g('ref-equity'));
-    entry={...entry,name:g('ref-name'),company:g('ref-org'),role:g('ref-role'),refType:g('ref-type2'),date:g('ref-date'),meetType:g('ref-meettype'),attended:g('ref-attended'),clientBase:g('ref-clientbase'),potential:g('ref-potential'),leads:g('ref-leads'),agreement:g('ref-agreement'),score1:s1,equity:eq,total:s1+eq,tier:g('ref-tier'),discussion:g('ref-discussion'),personal:g('ref-personal'),nextsteps:g('ref-nextsteps'),followup:g('ref-followup'),assess:g('ref-assess')};
+    entry={...entry,name:g('ref-name'),company:g('ref-org'),role:g('ref-role'),email:g('ref-email'),mobile:g('ref-mobile'),refType:g('ref-type2'),date:g('ref-date'),meetType:g('ref-meettype'),attended:g('ref-attended'),clientBase:g('ref-clientbase'),potential:g('ref-potential'),leads:g('ref-leads'),agreement:g('ref-agreement'),score1:s1,equity:eq,total:s1+eq,tier:g('ref-tier'),discussion:g('ref-discussion'),personal:g('ref-personal'),nextsteps:g('ref-nextsteps'),followup:g('ref-followup'),assess:g('ref-assess')};
   }
   meetings.unshift(entry);
   localStorage.setItem('gprs_meetings',JSON.stringify(meetings));
