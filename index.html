@@ -546,7 +546,8 @@ function syncToSheets(entry) {
     im:         entry.im || '',
     refType:    entry.refType || '',
     potential:  entry.potential || '',
-    notes:      [entry.discussion, entry.nextsteps, entry.concerns, entry.feedback, entry.leads, entry.personal].filter(Boolean).join(' | ')
+    notes:      [entry.discussion, entry.nextsteps, entry.concerns, entry.feedback, entry.leads, entry.personal].filter(Boolean).join(' | '),
+    mandateAlert: entry.mandateAlert || ''
   };
   fetch(SCRIPT_URL, {
     method: 'POST',
