@@ -458,6 +458,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--gbg);color:var
         <div class="field"><label>Follow-Up Date</label><input type="date" id="ref-followup"></div>
         <div class="field"><label>Overall Assessment</label>
           <select id="ref-assess"><option value="">Select...</option><option>Priority partner — invest heavily</option><option>Strong — nurture relationship</option><option>Developing — stay in touch</option><option>Low priority — monitor only</option></select></div>
+        <div class="field"><label>Add to Sell-Side Mandate Alert List?</label>
+          <select id="ref-mandate-alert"><option value="">Select...</option><option>Yes</option><option>No</option></select></div>
       </div>
     </div>
     <button type="submit" class="submit-btn">Save Referral Scorecard</button>
@@ -679,7 +681,7 @@ function submitForm(e,type){
     entry={...entry,name:g('buy-name'),company:g('buy-org'),role:g('buy-role'),date:g('buy-date'),meetType:g('buy-type'),attended:g('buy-attended'),buyerType:g('buy-buyertype'),dealSize:g('buy-dealsize'),sectors:g('buy-sectors'),criteria:g('buy-criteria'),nda:g('buy-nda'),im:g('buy-im'),score1:s1,score2:s2,equity:eq,total:s1+s2+eq,tier:g('buy-tier'),discussion:g('buy-discussion'),feedback:g('buy-feedback'),nextsteps:g('buy-nextsteps'),followup:g('buy-followup'),assess:g('buy-assess')};
   } else {
     const s1=parseInt(g('ref-score1')),eq=parseInt(g('ref-equity'));
-    entry={...entry,name:g('ref-name'),company:g('ref-org'),role:g('ref-role'),email:g('ref-email'),mobile:g('ref-mobile'),refType:g('ref-type2'),date:g('ref-date'),meetType:g('ref-meettype'),attended:g('ref-attended'),clientBase:g('ref-clientbase'),potential:g('ref-potential'),leads:g('ref-leads'),agreement:g('ref-agreement'),score1:s1,equity:eq,total:s1+eq,tier:g('ref-tier'),discussion:g('ref-discussion'),personal:g('ref-personal'),nextsteps:g('ref-nextsteps'),followup:g('ref-followup'),assess:g('ref-assess')};
+    entry={...entry,name:g('ref-name'),company:g('ref-org'),role:g('ref-role'),email:g('ref-email'),mobile:g('ref-mobile'),refType:g('ref-type2'),date:g('ref-date'),meetType:g('ref-meettype'),attended:g('ref-attended'),clientBase:g('ref-clientbase'),potential:g('ref-potential'),leads:g('ref-leads'),agreement:g('ref-agreement'),score1:s1,equity:eq,total:s1+eq,tier:g('ref-tier'),discussion:g('ref-discussion'),personal:g('ref-personal'),nextsteps:g('ref-nextsteps'),followup:g('ref-followup'),assess:g('ref-assess'),mandateAlert:g('ref-mandate-alert')};
   }
   meetings.unshift(entry);
   localStorage.setItem('gprs_meetings',JSON.stringify(meetings));
